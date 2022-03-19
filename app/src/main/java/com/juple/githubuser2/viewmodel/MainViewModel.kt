@@ -5,36 +5,39 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.juple.githubuser2.api.ApiConfig
-import com.juple.githubuser2.data.ItemsItem
-import com.juple.githubuser2.data.SearchUser
+import com.juple.githubuser2.data.User
+import com.juple.githubuser2.data.UserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainViewModel : ViewModel() {
 
-    private val _listUser = MutableLiveData<List<ItemsItem>>()
-    val listUser: LiveData<List<ItemsItem>> = _listUser
+    private val _listUser = MutableLiveData<ArrayList<User>>()
+    val listUser: LiveData<ArrayList<User>> = _listUser
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private fun findListUser(username: String) {
+    fun getListUser(query: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().searchUsers(username)
-        client.enqueue(object : Callback<SearchUser> {
-            override fun onResponse(call: Call<SearchUser>, response: Response<SearchUser>) {
+        val client = ApiConfig.getApiService().getSearchUsers(query)
+        client.enqueue(object : Callback<UserResponse> {
+            override fun onResponse(
+                call: Call<UserResponse>,
+                response: Response<UserResponse>
+            ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _listUser.value = response.body()?.items
+                    _listUser.postValue(response.body()?.items)
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    Log.e(TAG, "onFailure ${response.body()?.items}")
                 }
             }
 
-            override fun onFailure(call: Call<SearchUser>, t: Throwable) {
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
+                Log.e(TAG, "Failure, ${t.message}")
             }
         })
     }

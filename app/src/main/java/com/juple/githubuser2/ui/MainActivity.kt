@@ -1,88 +1,83 @@
 package com.juple.githubuser2.ui
 
-import android.app.SearchManager
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
-import android.view.Menu
+import android.view.KeyEvent
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.juple.githubuser2.R
 import com.juple.githubuser2.adapter.SearchAdapter
-import com.juple.githubuser2.data.ItemsItem
+import com.juple.githubuser2.data.User
 import com.juple.githubuser2.databinding.ActivityMainBinding
 import com.juple.githubuser2.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val mainViewModel by viewModels<MainViewModel>()
     private lateinit var binding: ActivityMainBinding
-    private val list = ArrayList<ItemsItem>()
+    private lateinit var adapter: SearchAdapter
+    private val viewModel by viewModels<MainViewModel>()
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mainViewModel.listUser.observe(this) { setListUser(it as ArrayList<ItemsItem>) }
-        list.addAll(list)
+        viewModel.isLoading.observe(this) { showLoading(it) }
 
-        val layoutManager = LinearLayoutManager(this)
-        binding.rvUsers.layoutManager = layoutManager
-        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-        binding.rvUsers.addItemDecoration(itemDecoration)
+        adapter = SearchAdapter()
+        adapter.notifyDataSetChanged()
+        binding.apply {
+            if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                rvUsers.layoutManager = GridLayoutManager(this@MainActivity, 2)
+            } else {
+                rvUsers.layoutManager = LinearLayoutManager(this@MainActivity)
+            }
+            rvUsers.setHasFixedSize(true)
+            rvUsers.adapter = adapter
 
-        mainViewModel.isLoading.observe(this) { showLoading(it) }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.search_menu, menu)
-
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = menu.findItem(R.id.search).actionView as SearchView
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchView.queryHint = resources.getString(R.string.search)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                searchView.clearFocus()
-                return true
+            btnSearch.setOnClickListener {
+                searchUser()
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return true
+            editQuery.setOnKeyListener { _, keyCode, keyEvent ->
+                if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    searchUser()
+                    return@setOnKeyListener true
+                }
+                return@setOnKeyListener false
             }
-        })
-        return true
-    }
+        }
 
-    private fun setListUser(listUsers: ArrayList<ItemsItem>) {
-        listUsers.map { it.avatarUrl; it.login }
-        val searchUserAdapter = SearchAdapter(listUsers)
-        binding.rvUsers.adapter = searchUserAdapter
-        searchUserAdapter.setOnItemClickCallback(object : SearchAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: ItemsItem) {
-                showSelectedUser(data)
+        viewModel.listUser.observe(this) {
+            if (it != null) {
+                adapter.addList(it)
+            }
+        }
+
+        adapter.setOnItemClickCallback(object : SearchAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: User) {
+                Intent(this@MainActivity, DetailActivity::class.java).also {
+                    it.putExtra(DetailActivity.USER, data.login)
+                    startActivity(it)
+                }
             }
         })
     }
 
-    private fun showLoading(b: Boolean) {
-        binding.progressBar.visibility = if (b) View.INVISIBLE else View.GONE
+    private fun searchUser() {
+        binding.apply {
+            val query = editQuery.text.toString()
+            if (query.isEmpty()) return
+            viewModel.getListUser(query)
+        }
     }
 
-    private fun showSelectedUser(user: ItemsItem) {
-        val intentToDetail = Intent(this, DetailActivity::class.java)
-        intentToDetail.putExtra(EXTRA_USER, user.login)
-        startActivity(intentToDetail)
-    }
-
-    companion object {
-        const val EXTRA_USER = "extra_user"
+    private fun showLoading(state: Boolean) {
+        binding.progressBar.visibility = if (state) View.VISIBLE else View.GONE
     }
 }

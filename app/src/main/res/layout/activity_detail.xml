@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/detail_avatar"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:contentDescription="@string/detail_avatar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.066"
+        tools:ignore="ImageContrastCheck"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -24,65 +25,78 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/detail_avatar"
+        app:layout_constraintStart_toStartOf="@+id/detail_avatar"
         app:layout_constraintTop_toBottomOf="@+id/detail_avatar"
-        tools:text="Name"/>
+        tools:text="Name" />
 
     <TextView
         android:id="@+id/detail_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/detail_name"
+        app:layout_constraintStart_toStartOf="@+id/detail_name"
         app:layout_constraintTop_toBottomOf="@+id/detail_name"
-        tools:text="username"/>
+        tools:text="username" />
 
     <TextView
         android:id="@+id/detail_company"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="12dp"
+        android:textSize="16sp"
+        app:drawableLeftCompat="@drawable/company_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detail_username"
-        tools:text="Company"/>
+        tools:text="Company" />
 
     <TextView
         android:id="@+id/detail_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        app:drawableLeftCompat="@drawable/company_icon"
+        app:layout_constraintStart_toStartOf="@+id/detail_company"
         app:layout_constraintTop_toBottomOf="@+id/detail_company"
-        tools:text="Location"/>
+        tools:text="Location" />
 
     <TextView
         android:id="@+id/detail_repo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        app:drawableLeftCompat="@drawable/repo_icon"
+        app:layout_constraintStart_toStartOf="@+id/detail_location"
         app:layout_constraintTop_toBottomOf="@+id/detail_location"
-        tools:text="Repository"/>
+        tools:text="Repository" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_avatar"
-        app:layout_constraintVertical_bias="0.227" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_repo"
+        app:tabBackground="@color/white"
+        app:tabSelectedTextColor="@color/black"
+        android:contentDescription="@string/follow_tab"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tabs" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

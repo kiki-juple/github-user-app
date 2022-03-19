@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.juple.githubuser2.databinding.FragmentFollowerBinding
 
-class FollowingFragment : Fragment() {
+class FollowersFragment : Fragment() {
 
     private var _binding: FragmentFollowerBinding? = null
     private val binding get() = _binding!!

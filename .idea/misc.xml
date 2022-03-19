@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/LEARNING/Android/GithubUser2/app/src/main/res/layout-v23/activity_main.xml" value="0.2" />
         <entry key="..\:/LEARNING/Android/GithubUser2/app/src/main/res/layout/activity_detail.xml" value="0.2" />
-        <entry key="..\:/LEARNING/Android/GithubUser2/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/LEARNING/Android/GithubUser2/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/LEARNING/Android/GithubUser2/app/src/main/res/layout/fragment_follower.xml" value="0.21621621621621623" />
         <entry key="..\:/LEARNING/Android/GithubUser2/app/src/main/res/layout/fragment_following.xml" value="0.21621621621621623" />
         <entry key="..\:/LEARNING/Android/GithubUser2/app/src/main/res/layout/list_user.xml" value="0.21621621621621623" />
