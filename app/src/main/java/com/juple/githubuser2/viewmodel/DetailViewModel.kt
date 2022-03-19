@@ -22,7 +22,10 @@ class DetailViewModel : ViewModel() {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getDetailUser(username)
         client.enqueue(object : Callback<DetailUserResponse> {
-            override fun onResponse(call: Call<DetailUserResponse>, response: Response<DetailUserResponse>) {
+            override fun onResponse(
+                call: Call<DetailUserResponse>,
+                response: Response<DetailUserResponse>
+            ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     _detailUser.postValue(response.body())
@@ -35,7 +38,6 @@ class DetailViewModel : ViewModel() {
                 _isLoading.value = false
                 Log.e(TAG, "Failure, ${t.message}")
             }
-
         })
     }
 

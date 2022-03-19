@@ -43,7 +43,7 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         }
-        viewModel.getDetailUser(username)
+        username?.let { viewModel.getDetailUser(it) }
 
         viewModel.detailUser.observe(this) {
             val totalFollowers = it.followers

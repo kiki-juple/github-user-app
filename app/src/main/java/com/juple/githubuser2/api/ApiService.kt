@@ -18,7 +18,7 @@ interface ApiService {
     ): Call<UserResponse>
 
     @Headers("Authorization: $TOKEN")
-    @GET("user/{username}")
+    @GET("users/{username}")
     fun getDetailUser(
         @Path("username") username: String
     ): Call<DetailUserResponse>
