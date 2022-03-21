@@ -4,9 +4,9 @@
     <string name="tab_follower">%1$d Followers</string>
     <string name="tab_following">%2$d Following</string>
     <string name="users_avatar">Avatar</string>
-    <string name="users_name">Name</string>
     <string name="users_username">Username</string>
     <string name="search">Search</string>
     <string name="search_icon">search icon</string>
     <string name="follow_tab">Follow tab</string>
+    <string name="splash_image">Splash Image</string>
 </resources>

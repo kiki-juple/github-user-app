@@ -1,12 +1,16 @@
 package com.juple.githubuser2.adapter
 
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.juple.githubuser2.ui.FollowersFragment
 import com.juple.githubuser2.ui.FollowingFragment
 
-class TabAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
+class TabAdapter(activity: AppCompatActivity, data: Bundle) :
+    FragmentStateAdapter(activity) {
+
+    private var fragmentBundle: Bundle = data
 
     override fun getItemCount() = 2
 
@@ -16,6 +20,7 @@ class TabAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
             0 -> fragment = FollowersFragment()
             1 -> fragment = FollowingFragment()
         }
+        fragment?.arguments = this.fragmentBundle
         return fragment as Fragment
     }
 }

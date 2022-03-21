@@ -25,6 +25,8 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val username = intent.getStringExtra(USER)
+        val bundle = Bundle()
+        bundle.putString(USER, username)
 
         viewModel.isLoading.observe(this) { }
         viewModel.detailUser.observe(this) {
@@ -49,7 +51,7 @@ class DetailActivity : AppCompatActivity() {
             val totalFollowers = it.followers
             val totalFollowing = it.following
 
-            val tabAdapter = TabAdapter(this)
+            val tabAdapter = TabAdapter(this, bundle)
             val viewPager: ViewPager2 = binding.viewPager
             viewPager.adapter = tabAdapter
             val tabs: TabLayout = binding.tabs

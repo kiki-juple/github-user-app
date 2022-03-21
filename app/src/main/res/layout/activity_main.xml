@@ -32,7 +32,9 @@
                 android:layout_height="match_parent"
                 android:hint="@string/search"
                 android:inputType="text"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColorHint="#757575"
+                tools:ignore="TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
