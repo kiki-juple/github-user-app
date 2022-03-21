@@ -36,6 +36,6 @@ interface ApiService {
     ): Call<ArrayList<User>>
 
     companion object {
-        private const val TOKEN = "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"
+        private const val TOKEN = "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"
     }
 }

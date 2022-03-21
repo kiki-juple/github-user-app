@@ -2,7 +2,6 @@
 <resources>
     <color name="dark_primary">#202124</color>
     <color name="light_primary">#2d3e50</color>
-    <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
