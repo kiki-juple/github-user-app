@@ -31,6 +31,7 @@ class DetailActivity : AppCompatActivity() {
         viewModel.isLoading.observe(this) { }
         viewModel.detailUser.observe(this) {
             if (it != null) {
+                title = it.login
                 binding.apply {
                     detailName.text = it.name
                     detailUsername.text = it.login

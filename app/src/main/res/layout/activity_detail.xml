@@ -40,7 +40,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="16sp"
+        android:layout_marginTop="2dp"
+        android:drawablePadding="4dp"
+        android:textSize="14sp"
         app:drawableLeftCompat="@drawable/location_icon"
         tools:text="Location" />
 
@@ -49,8 +51,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="4dp"
-        android:textSize="16sp"
+        android:drawablePadding="4dp"
+        android:textSize="14sp"
         app:drawableLeftCompat="@drawable/company_icon"
         tools:text="Company" />
 
@@ -59,7 +61,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="16sp"
+        android:drawablePadding="4dp"
+        android:textSize="14sp"
         app:drawableLeftCompat="@drawable/repo_icon"
         tools:text="100" />
 
